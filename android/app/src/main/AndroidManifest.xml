@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lc.nine_rings">
    <application
-        android:label="nine_rings"
+        android:label="九戒"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
