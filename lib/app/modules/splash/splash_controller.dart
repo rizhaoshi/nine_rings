@@ -1,6 +1,7 @@
 import 'package:nine_rings/app/modules/splash/illustration.dart';
 import 'package:nine_rings/common/conflg.dart';
 import 'package:get/get.dart';
+import 'package:sqflite/sqflite.dart';
 
 class SplashController extends GetxController {
   //TODO: Implement SplashController
@@ -14,8 +15,9 @@ class SplashController extends GetxController {
   }
 
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
+    print("===="+await getDatabasesPath());
   }
 
   @override
