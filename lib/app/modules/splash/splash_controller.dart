@@ -17,7 +17,7 @@ class SplashController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
-    print("===="+await getDatabasesPath());
+    // print("===="+await getDatabasesPath());
   }
 
   @override

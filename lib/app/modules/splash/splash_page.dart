@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:nine_rings/app/modules/splash/splash_controller.dart';
 import 'package:nine_rings/app/modules/splash/illustration.dart';
 import 'package:nine_rings/common/conflg.dart';
+import 'package:nine_rings/routes/app_routes.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -73,7 +74,9 @@ class _SplashPageViewState extends State<SplashPageView> {
                           height: 50,
                           margin: const EdgeInsets.only(top: 30),
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed(Routes.MAIN);
+                            },
                             style: ButtonStyle(
                               backgroundColor:
                                   MaterialStateProperty.resolveWith(

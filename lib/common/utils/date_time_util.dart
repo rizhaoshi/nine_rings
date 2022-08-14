@@ -7,7 +7,7 @@ String formatter_b = 'yyyy.MM.dd HH:mm';
 //字符串转TimeOfDay
 TimeOfDay? strToTimeOfDay(String str) {
   if (ObjectUtil.isEmptyString(str)) return null;
-  List<String> items = str!.split(':');
+  List<String> items = str!.split(':')!;
   if (ObjectUtil.isEmptyList(items)) return null;
   if (items.length != 2) return null;
   TimeOfDay? timeOfDay;

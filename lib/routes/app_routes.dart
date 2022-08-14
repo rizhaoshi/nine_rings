@@ -1,5 +1,9 @@
 import 'package:nine_rings/app/modules/splash/splash_page.dart';
 import 'package:nine_rings/app/modules/splash/splash_binding.dart';
+import 'package:nine_rings/app/modules/main/main_page.dart';
+import 'package:nine_rings/app/modules/main/main_binding.dart';
+import 'package:nine_rings/app/modules/home/home_view.dart';
+import 'package:nine_rings/app/modules/home/home_binding.dart';
 import 'package:get/get.dart';
 
 abstract class AppPages {
@@ -8,6 +12,8 @@ abstract class AppPages {
         name: Routes.SPLASH,
         page: () => SplashPage(),
         binding: SplashBinding()),
+    GetPage(name: Routes.MAIN, page: () => MainPage(), binding: MainBinding()),
+    GetPage(name: Routes.HOME, page: () => HomeView(), binding: HomeBinding()),
   ];
 }
 
@@ -15,4 +21,6 @@ abstract class AppPages {
 abstract class Routes {
   static const INITIAL = "/";
   static const SPLASH = "/splash";
+  static const MAIN = "/main";
+  static const HOME = "/home";
 }

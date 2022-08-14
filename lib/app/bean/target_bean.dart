@@ -43,7 +43,7 @@ class TargetBean {
     Color? color;
     String colorStr = map['t_colors'];
     if (!ObjectUtil.isEmptyString(colorStr)) {
-      List<String> items = colorStr!.split('|');
+      List<String> items = colorStr!.split('|')!;
       if (!ObjectUtil.isEmptyList(items) && items.length == 3) {
         try {
           color = Color.fromRGBO(
@@ -59,7 +59,7 @@ class TargetBean {
     String notificationTimesStr = map['t_notification_times'];
 
     if (!ObjectUtil.isEmptyString(notificationTimesStr)) {
-      List<String> items = notificationTimesStr!.split('|');
+      List<String> items = notificationTimesStr!.split('|')!;
       if (!ObjectUtil.isEmptyList(items)) {
         times = [];
         items.forEach((element) {
