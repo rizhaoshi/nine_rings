@@ -1,5 +1,5 @@
 import 'package:nine_rings/app/modules/splash/illustration.dart';
-import 'package:nine_rings/common/conflg.dart';
+import 'package:nine_rings/common/config.dart';
 import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
 

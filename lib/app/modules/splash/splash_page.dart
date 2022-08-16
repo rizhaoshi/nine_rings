@@ -1,9 +1,9 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:nine_rings/app/modules/splash/splash_controller.dart';
 import 'package:nine_rings/app/modules/splash/illustration.dart';
-import 'package:nine_rings/common/conflg.dart';
+import 'package:nine_rings/common/config.dart';
 import 'package:nine_rings/routes/app_routes.dart';
 
 class SplashPage extends StatelessWidget {
@@ -52,7 +52,7 @@ class _SplashPageViewState extends State<SplashPageView> {
                         top: Get.height / 2 - (Get.width - 40) / 2 - 50),
                     child: SvgPicture.asset(
                       tration.asset!,
-                      height: Get.width - 40,
+                      height: Get.width                                                                          ,
                     ),
                   ),
                   Container(

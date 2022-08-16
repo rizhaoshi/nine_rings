@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:nine_rings/app/modules/home/home_view.dart';
-
+import 'package:nine_rings/common/widgets/main_page_tabview.dart';
 import 'main_controller.dart';
+import 'package:nine_rings/common/config.dart';
 
 class MainPage extends GetView<MainController> {
   const MainPage({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class MainPage extends GetView<MainController> {
                 physics: NeverScrollableScrollPhysics(),
                 controller: controller.pageController,
                 children: [
-                  HomeView(),
+                  HomePage(),
                   Container(
                     color: Colors.red,
                     width: double.infinity,
@@ -38,7 +39,20 @@ class MainPage extends GetView<MainController> {
               child: Container(
                 height: bottomTabViewHeight,
                 width: double.infinity,
-                color: Colors.orange,
+                child: MainPageTabView(
+                  tabIcons: const [
+                    'assets/icons/common/menu.svg',
+                    'assets/icons/common/exercise.svg'
+                  ],
+                  selectedIndex: 0,
+                  bgColor: Colors.white,
+                  activeColor: commonGreenColor,
+                  onPress: (index) {
+                    controller.pageController.animateToPage(index,
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.ease);
+                  },
+                ),
               ),
             )
           ],

@@ -56,6 +56,9 @@ dev_dependencies:
   sqflite: ^2.0.3+1
   common_utils: ^2.1.0
   intl: 0.17.0
+  auto_animated: ^3.0.1
+  modal_bottom_sheet: ^2.1.0
+  audioplayers: ^1.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -99,9 +102,6 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
-    - images/zmbz_ys_yj_01.png
-    - images/icon_lzgy.jpg
-    - images/img_mn_01.jpg
-    - images/img_mn_02.jpg
-    - images/img_mn_03.jpg
-    - images/img_mn_04.jpg
+    - assets/illustrations/splash/
+    - assets/icons/common/
+    - assets/sounds/

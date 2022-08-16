@@ -41,9 +41,9 @@ class TargetBean {
     if (ObjectUtil.isEmptyMap(map)) return null;
 
     Color? color;
-    String colorStr = map['t_colors'];
+    String? colorStr = map['t_colors'];
     if (!ObjectUtil.isEmptyString(colorStr)) {
-      List<String> items = colorStr!.split('|')!;
+      List<String> items = colorStr!.split('|');
       if (!ObjectUtil.isEmptyList(items) && items.length == 3) {
         try {
           color = Color.fromRGBO(
@@ -56,10 +56,10 @@ class TargetBean {
 
     //目标推送时间
     List<TimeOfDay>? times;
-    String notificationTimesStr = map['t_notification_times'];
+    String? notificationTimesStr = map['t_notification_times'];
 
     if (!ObjectUtil.isEmptyString(notificationTimesStr)) {
-      List<String> items = notificationTimesStr!.split('|')!;
+      List<String> items = notificationTimesStr!.split('|');
       if (!ObjectUtil.isEmptyList(items)) {
         times = [];
         items.forEach((element) {
