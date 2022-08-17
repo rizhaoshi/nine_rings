@@ -8,10 +8,8 @@ final Color textGreyColor = Color.fromRGBO(151, 158, 168, 1);
 final Color textBlackColor = Color.fromRGBO(69, 80, 97, 1);
 final Color commonGreenColor = Color.fromRGBO(195, 221, 83, 1);
 final List<Illustration> splashImages = [
-  Illustration("assets/illustrations/splash/junk_food.svg",
-      "BSGStudio on all-free download.com"),
-  Illustration("assets/illustrations/splash/mental_well_being.svg",
-      "Iconscout Store on iconscout.com"),
+  Illustration("assets/illustrations/splash/junk_food.svg", "BSGStudio on all-free download.com"),
+  Illustration("assets/illustrations/splash/mental_well_being.svg", "Iconscout Store on iconscout.com"),
 ];
 
 final List<TargetBean> defaultTargets = [
@@ -233,24 +231,73 @@ final List<Color> colors = [
 ];
 
 List<Sound> notificationSounds = [
-  Sound(
-      soundKey: 'lg',
-      soundName: 'sound_lg'.tr,
-      soundPath: 'sounds/lg.m4a'),
-  Sound(
-      soundKey: 'pikachu',
-      soundName: 'sound_pikachu'.tr,
-      soundPath: 'sounds/pikachu.m4a'),
-  Sound(
-      soundKey: 'ringtones',
-      soundName: 'sound_ringtones'.tr,
-      soundPath: 'sounds/ringtones.m4a'),
-  Sound(
-      soundKey: 'samsung',
-      soundName: 'sound_samsung'.tr,
-      soundPath: 'sounds/samsung.m4a'),
-  Sound(
-      soundKey: 'slow_spring_board',
-      soundName: 'sound_spring'.tr,
-      soundPath: 'sounds/slow_spring_board.m4a'),
+  Sound(soundKey: 'lg', soundName: 'sound_lg'.tr, soundPath: 'sounds/lg.m4a'),
+  Sound(soundKey: 'pikachu', soundName: 'sound_pikachu'.tr, soundPath: 'sounds/pikachu.m4a'),
+  Sound(soundKey: 'ringtones', soundName: 'sound_ringtones'.tr, soundPath: 'sounds/ringtones.m4a'),
+  Sound(soundKey: 'samsung', soundName: 'sound_samsung'.tr, soundPath: 'sounds/samsung.m4a'),
+  Sound(soundKey: 'slow_spring_board', soundName: 'sound_spring'.tr, soundPath: 'sounds/slow_spring_board.m4a'),
+];
+
+List<String> hours = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
+List<String> minutes = [
+  '0',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '10',
+  '11',
+  '12',
+  '13',
+  '14',
+  '15',
+  '16',
+  '17',
+  '18',
+  '19',
+  '20',
+  '21',
+  '22',
+  '23',
+  '24',
+  '25',
+  '26',
+  '27',
+  '28',
+  '29',
+  '30',
+  '31',
+  '32',
+  '33',
+  '34',
+  '35',
+  '36',
+  '37',
+  '38',
+  '39',
+  '40',
+  '41',
+  '42',
+  '43',
+  '44',
+  '45',
+  '46',
+  '47',
+  '48',
+  '49',
+  '50',
+  '51',
+  '52',
+  '53',
+  '54',
+  '55',
+  '56',
+  '57',
+  '58',
+  '59'
 ];

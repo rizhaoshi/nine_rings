@@ -9,6 +9,7 @@ import 'package:nine_rings/app/bean/target_bean.dart';
 import 'package:nine_rings/app/bean/sound_bean.dart';
 import 'package:nine_rings/common/utils/object_util.dart';
 import 'package:nine_rings/common/utils/date_time_util.dart';
+import 'package:nine_rings/common/widgets/custom_dialog.dart';
 
 enum TaskEditPageEnterType {
   Enter_Type_New,
@@ -219,10 +220,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
                           borderRadius: const BorderRadius.all(Radius.circular(10.0))),
                       alignment: Alignment.center,
                       child: Text(e.toString(),
-                          style: TextStyle(
-                              color: targetDays == 0 ? Colors.white : textBlackColor,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.w400)))),
+                          style: TextStyle(color: targetDays == 0 ? Colors.white : textBlackColor, fontSize: 16.0, fontWeight: FontWeight.w400)))),
             )
             .toList());
   }
@@ -314,9 +312,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
                                     children: [
                                       Container(
                                           alignment: Alignment.center,
-                                          child: Text(widget.target.name!,
-                                              style: TextStyle(
-                                                  fontSize: 20, color: targetColor, fontWeight: FontWeight.w500))),
+                                          child: Text(widget.target.name!, style: TextStyle(fontSize: 20, color: targetColor, fontWeight: FontWeight.w500))),
                                       Positioned(
                                           left: 20,
                                           top: 17.5,
@@ -325,14 +321,11 @@ class _TaskEditPageState extends State<TaskEditPage> {
                                               _cancel();
                                             },
                                             child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius: const BorderRadius.all(Radius.circular(5)),
-                                                  color: targetColor),
+                                              decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(5)), color: targetColor),
                                               width: 50,
                                               height: 25,
                                               alignment: Alignment.center,
-                                              child: Text('cancel'.tr,
-                                                  style: const TextStyle(color: Colors.white, fontSize: 14)),
+                                              child: Text('cancel'.tr, style: const TextStyle(color: Colors.white, fontSize: 14)),
                                             ),
                                           )),
                                       Positioned(
@@ -343,14 +336,11 @@ class _TaskEditPageState extends State<TaskEditPage> {
                                               _save();
                                             },
                                             child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius: const BorderRadius.all(Radius.circular(5)),
-                                                  color: targetColor),
+                                              decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(5)), color: targetColor),
                                               width: 50,
                                               height: 25,
                                               alignment: Alignment.center,
-                                              child: Text('save'.tr,
-                                                  style: const TextStyle(color: Colors.white, fontSize: 14)),
+                                              child: Text('save'.tr, style: const TextStyle(color: Colors.white, fontSize: 14)),
                                             ),
                                           )),
                                     ],
@@ -375,26 +365,18 @@ class _TaskEditPageState extends State<TaskEditPage> {
                                                   height: 60,
                                                   alignment: Alignment.centerLeft,
                                                   child: Text('select_day'.tr,
-                                                      style: TextStyle(
-                                                          color: textBlackColor,
-                                                          fontSize: 18.0,
-                                                          fontWeight: FontWeight.w500)))),
+                                                      style: TextStyle(color: textBlackColor, fontSize: 18.0, fontWeight: FontWeight.w500)))),
                                           Offstage(
                                             offstage: widget.enterType == TaskEditPageEnterType.Enter_Type_Edit,
                                             child: Container(
-                                                width: double.infinity,
-                                                margin: const EdgeInsets.only(left: 5, right: 0.0),
-                                                child: _renderTargetDays()),
+                                                width: double.infinity, margin: const EdgeInsets.only(left: 5, right: 0.0), child: _renderTargetDays()),
                                           ),
                                           Offstage(
                                               offstage: widget.enterType == TaskEditPageEnterType.Enter_Type_Edit,
                                               child: Container(
                                                 margin: const EdgeInsets.only(left: 0, right: 10, top: 15, bottom: 10),
                                                 child: Text("${'custom_days'.tr} < = 100 ${'days'.tr}",
-                                                    style: TextStyle(
-                                                        color: textBlackColor,
-                                                        fontSize: 16.0,
-                                                        fontWeight: FontWeight.w400)),
+                                                    style: TextStyle(color: textBlackColor, fontSize: 16.0, fontWeight: FontWeight.w400)),
                                               )),
                                           Offstage(
                                             offstage: widget.enterType == TaskEditPageEnterType.Enter_Type_Edit,
@@ -408,8 +390,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
                                                     height: 35,
                                                     alignment: Alignment.center,
                                                     decoration: const BoxDecoration(
-                                                        color: Color.fromRGBO(230, 230, 230, 1),
-                                                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                                                        color: Color.fromRGBO(230, 230, 230, 1), borderRadius: BorderRadius.all(Radius.circular(10.0))),
                                                     child: TextField(
                                                       focusNode: focusNode,
                                                       inputFormatters: [InputDaysFormatter()],
@@ -419,10 +400,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
                                                       textAlignVertical: TextAlignVertical.center,
                                                       cursorColor: targetColor,
                                                       keyboardType: TextInputType.number,
-                                                      style: TextStyle(
-                                                          color: targetColor,
-                                                          fontSize: 20.0,
-                                                          fontWeight: FontWeight.w500),
+                                                      style: TextStyle(color: targetColor, fontSize: 20.0, fontWeight: FontWeight.w500),
                                                       decoration: const InputDecoration(
                                                           contentPadding: EdgeInsets.only(left: 15, right: 15),
                                                           border: OutlineInputBorder(borderSide: BorderSide.none)),
@@ -431,10 +409,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
                                                   const SizedBox(width: 5),
                                                   Text(
                                                     "days".tr,
-                                                    style: TextStyle(
-                                                        color: textBlackColor,
-                                                        fontSize: 16.0,
-                                                        fontWeight: FontWeight.w400),
+                                                    style: TextStyle(color: textBlackColor, fontSize: 16.0, fontWeight: FontWeight.w400),
                                                   )
                                                 ],
                                               ),
@@ -449,10 +424,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
                                                     height: 60,
                                                     alignment: Alignment.centerLeft,
                                                     child: Text("select_color".tr,
-                                                        style: TextStyle(
-                                                            color: textBlackColor,
-                                                            fontSize: 18.0,
-                                                            fontWeight: FontWeight.w500))),
+                                                        style: TextStyle(color: textBlackColor, fontSize: 18.0, fontWeight: FontWeight.w500))),
                                                 Container(
                                                   margin: const EdgeInsets.only(left: 10, right: 10),
                                                   child: _renderColorSelectWidget(colorSelectCallBack: (color) {
@@ -474,16 +446,12 @@ class _TaskEditPageState extends State<TaskEditPage> {
                                                     height: 60,
                                                     alignment: Alignment.centerLeft,
                                                     child: Text("notify_sound".tr,
-                                                        style: TextStyle(
-                                                            color: textBlackColor,
-                                                            fontSize: 18.0,
-                                                            fontWeight: FontWeight.w500))),
+                                                        style: TextStyle(color: textBlackColor, fontSize: 18.0, fontWeight: FontWeight.w500))),
                                                 Container(
                                                   height: 45,
                                                   margin: const EdgeInsets.only(left: 5, right: 5),
                                                   decoration: const BoxDecoration(
-                                                      color: Color.fromRGBO(230, 230, 230, 1),
-                                                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                                                      color: Color.fromRGBO(230, 230, 230, 1), borderRadius: BorderRadius.all(Radius.circular(10.0))),
                                                   child: TextButton(
                                                     onPressed: () {
                                                       showModalBottomSheet(
@@ -503,8 +471,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
                                                           });
                                                     },
                                                     style: ButtonStyle(
-                                                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.circular(10.0)))),
+                                                        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)))),
                                                     child: Row(
                                                       children: [
                                                         Container(
@@ -521,10 +488,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
                                                         ),
                                                         Text(
                                                           _renderDisplaySoundName(),
-                                                          style: TextStyle(
-                                                              color: targetColor,
-                                                              fontSize: 18.0,
-                                                              fontWeight: FontWeight.w400),
+                                                          style: TextStyle(color: targetColor, fontSize: 18.0, fontWeight: FontWeight.w400),
                                                         )
                                                       ],
                                                     ),
@@ -543,10 +507,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
                                                           children: [
                                                             Text(
                                                               "notify_time".tr,
-                                                              style: TextStyle(
-                                                                  color: textBlackColor,
-                                                                  fontWeight: FontWeight.w500,
-                                                                  fontSize: 18.0),
+                                                              style: TextStyle(color: textBlackColor, fontWeight: FontWeight.w500, fontSize: 18.0),
                                                             ),
                                                             !ObjectUtil.isEmptyList(targetNotificationTimes)
                                                                 ? InkWell(
@@ -570,16 +531,31 @@ class _TaskEditPageState extends State<TaskEditPage> {
                                                                   )
                                                                 : const SizedBox.shrink(),
                                                             (ObjectUtil.isEmptyList(targetNotificationTimes) ||
-                                                                    targetNotificationTimes!.length <
-                                                                        _notificationTimesMaxLimit)
+                                                                    targetNotificationTimes!.length < _notificationTimesMaxLimit)
                                                                 ? InkWell(
                                                                     onTap: () {
                                                                       setState(() {
-                                                                        isDeleteMode =
-                                                                            (isDeleteMode ? false : isDeleteMode);
+                                                                        isDeleteMode = (isDeleteMode ? false : isDeleteMode);
                                                                       });
                                                                       //新增时间
-                                                                      // showTimePickerDialog()
+                                                                      showTimePickerDialog(context, bgColor: targetColor,
+                                                                          selectTimeCallBack: (selectedHour, selectedMins) {
+                                                                        if (selectedHour != null && selectedMins != null) {
+                                                                          print("$selectedHour========$selectedMins");
+                                                                          TimeOfDay addenTimeOfDay =
+                                                                              TimeOfDay(hour: int.parse(selectedHour), minute: int.parse(selectedMins));
+                                                                          if (!targetNotificationTimes!.contains(addenTimeOfDay)) {
+                                                                            setState(() {
+                                                                              targetNotificationTimes!.add(addenTimeOfDay);
+                                                                              targetNotificationTimes!.sort((e1, e2) {
+                                                                                return (e1.hour.compareTo(e2.hour) == 0
+                                                                                    ? e1.minute.compareTo(e2.minute)
+                                                                                    : e1.hour.compareTo(e2.hour));
+                                                                              });
+                                                                            });
+                                                                          }
+                                                                        }
+                                                                      });
                                                                     },
                                                                     child: Container(
                                                                       margin: const EdgeInsets.only(left: 8, top: 4),
@@ -600,8 +576,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
                                                       ),
                                                       Container(
                                                         margin: const EdgeInsets.only(left: 5, right: 0),
-                                                        child: _renderTimeNotificationWidget(isDeleteMode,
-                                                            deleteCallBack: (index) {
+                                                        child: _renderTimeNotificationWidget(isDeleteMode, deleteCallBack: (index) {
                                                           print(index);
                                                           //删除时间
                                                           setState(() {
@@ -680,8 +655,7 @@ class _SoundSelectWidgetState extends State<SoundSelectWidget> {
     super.dispose();
   }
 
-  Widget _renderSoundView(int selectIndex,
-      {required Function(int index) callBack, required Function(Sound sound) selectSoundCallBack}) {
+  Widget _renderSoundView(int selectIndex, {required Function(int index) callBack, required Function(Sound sound) selectSoundCallBack}) {
     List<Widget> widgets = [];
     widgets.add(Container(
       margin: const EdgeInsets.only(top: 20, bottom: 20),
@@ -727,9 +701,7 @@ class _SoundSelectWidgetState extends State<SoundSelectWidget> {
         width: double.infinity,
         alignment: Alignment.center,
         decoration: BoxDecoration(color: widget.baseColor!, borderRadius: const BorderRadius.all(Radius.circular(10))),
-        child: Text("confirm".tr,
-            textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w400)),
+        child: Text("confirm".tr, textAlign: TextAlign.center, style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w400)),
       ),
     ));
     return Column(
@@ -757,9 +729,8 @@ class _SoundSelectWidgetState extends State<SoundSelectWidget> {
             right: 0,
             bottom: 0,
             child: Container(
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
-                  color: Colors.white),
+              decoration:
+                  const BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)), color: Colors.white),
               child: Container(
                 padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom + 10.0),
                 child: _renderSoundView(_selectedIndex, callBack: (index) {
@@ -799,8 +770,7 @@ class _TimeNotificationWidgetState extends State<TimeNotificationWidget> {
         child: Stack(children: [
           Container(
               alignment: Alignment.center,
-              child: Text(timeOfDayToStr(widget.timeOfDay) ?? "",
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16.0))),
+              child: Text(timeOfDayToStr(widget.timeOfDay) ?? "", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16.0))),
           widget.isDeleteMode
               ? Positioned(
                   top: 0,
@@ -814,8 +784,7 @@ class _TimeNotificationWidgetState extends State<TimeNotificationWidget> {
                           width: 30,
                           height: 30,
                           alignment: Alignment.topRight,
-                          decoration:
-                              const BoxDecoration(borderRadius: BorderRadius.only(topRight: Radius.circular(10.0))),
+                          decoration: const BoxDecoration(borderRadius: BorderRadius.only(topRight: Radius.circular(10.0))),
                           child: SvgPicture.asset(
                             'assets/icons/common/minus.svg',
                             width: 20,
