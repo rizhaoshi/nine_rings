@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:nine_rings/app/modules/home/home_view.dart';
+import 'package:nine_rings/app/modules/home/home_page.dart';
 import 'package:nine_rings/common/widgets/main_page_tabview.dart';
 import 'main_controller.dart';
 import 'package:nine_rings/common/config.dart';
@@ -18,18 +18,9 @@ class MainPage extends GetView<MainController> {
           children: [
             Positioned(
               child: PageView(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 controller: controller.pageController,
-                children: [
-                  HomePage(),
-                  Container(
-                    color: Colors.red,
-                    width: double.infinity,
-                    height: double.infinity,
-                    alignment: Alignment.center,
-                    child: Text('运动瀑布页'),
-                  )
-                ],
+                children: controller.pageViews,
               ),
             ),
             Positioned(
@@ -40,17 +31,12 @@ class MainPage extends GetView<MainController> {
                 height: bottomTabViewHeight,
                 width: double.infinity,
                 child: MainPageTabView(
-                  tabIcons: const [
-                    'assets/icons/common/menu.svg',
-                    'assets/icons/common/exercise.svg'
-                  ],
+                  tabIcons: const ['assets/icons/common/menu.svg', 'assets/icons/common/exercise.svg'],
                   selectedIndex: 0,
                   bgColor: Colors.white,
                   activeColor: commonGreenColor,
                   onPress: (index) {
-                    controller.pageController.animateToPage(index,
-                        duration: const Duration(milliseconds: 200),
-                        curve: Curves.ease);
+                    controller.pageController.animateToPage(index, duration: const Duration(milliseconds: 200), curve: Curves.ease);
                   },
                 ),
               ),

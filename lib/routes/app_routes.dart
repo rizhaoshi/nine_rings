@@ -2,7 +2,7 @@ import 'package:nine_rings/app/modules/splash/splash_page.dart';
 import 'package:nine_rings/app/modules/splash/splash_binding.dart';
 import 'package:nine_rings/app/modules/main/main_page.dart';
 import 'package:nine_rings/app/modules/main/main_binding.dart';
-import 'package:nine_rings/app/modules/home/home_view.dart';
+import 'package:nine_rings/app/modules/home/home_page.dart';
 import 'package:nine_rings/app/modules/home/home_binding.dart';
 import 'package:nine_rings/app/modules/target/target_page.dart';
 import 'package:nine_rings/app/modules/target/target_binding.dart';
