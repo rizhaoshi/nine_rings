@@ -36,8 +36,7 @@ class NoteTableProvider extends BaseTableProvider {
     if (ObjectUtil.isEmptyString(createTime)) return;
     //执行插入操作 返回插入的主键id
     return await db.transaction((txn) async {
-      int rowid = await txn.rawInsert(
-          'INSERT INTO $tablename($columnTargetId,$columnNote,$columnCreateTime) VALUES($targetId,"$noteText","$createTime")');
+      int rowid = await txn.rawInsert('INSERT INTO $tablename($columnTargetId,$columnNote,$columnCreateTime) VALUES($targetId,"$noteText","$createTime")');
       return rowid;
     });
   }
@@ -45,8 +44,7 @@ class NoteTableProvider extends BaseTableProvider {
   //查询某条目标下的所有日记
   Future<List<NoteBean>> queryNotesByTarget({required int targetId}) async {
     Database db = await getDataBase();
-    String sql =
-        'SELECT=FROM $tablename WHERE $columnTargetId=$targetId ORDER BY $columnCreateTime';
+    String sql = 'SELECT*FROM $tablename WHERE $columnTargetId=$targetId ORDER BY $columnCreateTime';
     List<Map<String, dynamic>> results = await db.rawQuery(sql);
     List<NoteBean> notes = [];
     results.forEach((element) {

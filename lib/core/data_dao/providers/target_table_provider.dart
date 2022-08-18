@@ -32,7 +32,7 @@ class TargetTableProvider extends BaseTableProvider {
     $columnTargetDays INTEGER NOT NULL,
     $columnTargetColors TEXT,
     $columnTargetSoundKey TEXT NOT NULL,
-    $columnTargetNotificationTimes TEXT，
+    $columnTargetNotificationTimes TEXT,
     $columnTargetCreateTime TEXT NOT NULL,
     $columnTargetDeleteTime TEXT,
     $columnTargetGiveUpTime TEXT)''';
@@ -48,9 +48,7 @@ class TargetTableProvider extends BaseTableProvider {
     Database db = await getDataBase();
     String name = target.name!;
     int days = target.targetDays!;
-    String? colors = target.targetColor == null
-        ? null
-        : "${target.targetColor!.red}|${target.targetColor!.green}|${target.targetColor!.blue}";
+    String? colors = target.targetColor == null ? null : "${target.targetColor!.red}|${target.targetColor!.green}|${target.targetColor!.blue}";
     String soundKey = target.soundKey!;
     String? notificationTimes;
     if (target.notificationTimes != null) {
@@ -79,22 +77,17 @@ class TargetTableProvider extends BaseTableProvider {
     if (filterType != null) {
       if (filterType == FilterType.giveUp) {
         //查询已放弃目标数据
-        sql =
-            'SELECT=FROM $tablename WHERE $columnTargetGiveUpTime IS NOT NULL ORDER BY $columnTargetCreateTime DESC';
-      } else if (filterType == FilterType.completed ||
-          filterType == FilterType.processing) {
+        sql = 'SELECT*FROM $tablename WHERE $columnTargetGiveUpTime IS NOT NULL ORDER BY $columnTargetCreateTime DESC';
+      } else if (filterType == FilterType.completed || filterType == FilterType.processing) {
         //查询已完成或进行中目标数据
-        sql =
-            'SELECT=FROM $tablename WHERE $columnTargetGiveUpTime IS NULL ORDER BY $columnTargetCreateTime DESC';
+        sql = 'SELECT*FROM $tablename WHERE $columnTargetGiveUpTime IS NULL ORDER BY $columnTargetCreateTime DESC';
       } else {
         //查询所有数据
-        sql =
-            'SELECT=FROM $tablename WHERE ORDER BY $columnTargetCreateTime DESC';
+        sql = 'SELECT*FROM $tablename ORDER BY $columnTargetCreateTime DESC';
       }
     } else {
       //查询所有数据
-      sql =
-          'SELECT=FROM $tablename WHERE ORDER BY $columnTargetCreateTime DESC';
+      sql = 'SELECT*FROM $tablename ORDER BY $columnTargetCreateTime DESC';
     }
     List<Map<String, dynamic>> results = await db.rawQuery(sql);
     List<TargetBean> targets = [];
@@ -112,9 +105,7 @@ class TargetTableProvider extends BaseTableProvider {
   Future updateTarget(TargetBean target) async {
     Database db = await getDataBase();
     //只能更新颜色 通知时间 声音
-    String? colors = target.targetColor == null
-        ? null
-        : "${target.targetColor!.red}|${target.targetColor!.green}|${target.targetColor!.blue}";
+    String? colors = target.targetColor == null ? null : "${target.targetColor!.red}|${target.targetColor!.green}|${target.targetColor!.blue}";
     String? notificationTimes;
     if (target.notificationTimes != null) {
       String times = "";
@@ -131,8 +122,7 @@ class TargetTableProvider extends BaseTableProvider {
     //执行更新操作 返回插入的主键id
     return await db.transaction((txn) async {
       Database db = await getDataBase();
-      int count = await txn.rawUpdate(
-          'UPDATE $tablename SET $columnTargetColors=?,$columnTargetSoundKey=?,$columnTargetNotificationTimes=? WHERE $columnId=',
+      int count = await txn.rawUpdate('UPDATE $tablename SET $columnTargetColors=?,$columnTargetSoundKey=?,$columnTargetNotificationTimes=? WHERE $columnId=',
           [colors, soundKey, notificationTimes, target.id]);
       return count;
     });
@@ -143,9 +133,7 @@ class TargetTableProvider extends BaseTableProvider {
     Database db = await getDataBase();
     String now = formatTime(dateTime: DateTime.now())!;
     return await db.transaction((txn) async {
-      int count = await txn.rawUpdate(
-          'UPDATE $tablename SET $columnTargetGiveUpTime=? WHERE $columnId=',
-          [now, target.id]);
+      int count = await txn.rawUpdate('UPDATE $tablename SET $columnTargetGiveUpTime=? WHERE $columnId=', [now, target.id]);
       return count;
     });
   }

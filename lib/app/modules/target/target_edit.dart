@@ -10,6 +10,10 @@ import 'package:nine_rings/app/bean/sound_bean.dart';
 import 'package:nine_rings/common/utils/object_util.dart';
 import 'package:nine_rings/common/utils/date_time_util.dart';
 import 'package:nine_rings/common/widgets/custom_dialog.dart';
+import 'package:nine_rings/core/data_dao/providers/target_table_provider.dart';
+
+import '../../../routes/app_routes.dart';
+import '../main/main_controller.dart';
 
 enum TaskEditPageEnterType {
   Enter_Type_New,
@@ -36,6 +40,8 @@ class _TaskEditPageState extends State<TaskEditPage> {
 
   bool isDeleteMode = false;
   final _notificationTimesMaxLimit = 4;
+
+  MainController mainController= Get.find<MainController>();
 
   @override
   void initState() {
@@ -71,18 +77,19 @@ class _TaskEditPageState extends State<TaskEditPage> {
   }
 
   void _save() async {
+    TargetTableProvider targetTableProvider = TargetTableProvider();
     if (widget.enterType == TaskEditPageEnterType.Enter_Type_Edit) {
-      // //编辑目标，更新数据库
-      // TargetBean updateTarget = TargetBean()
-      //   ..id = widget.target.id
-      //   ..name = widget.target.name
-      //   ..targetDays = targetDays
-      //   ..targetColor = targetColor
-      //   ..soundKey = soundKey
-      //   ..createTime = widget.target.createTime
-      //   ..targetStatus = widget.target.targetStatus
-      //   ..giveUpTime = widget.target.giveUpTime
-      //   ..notificationTimes = List.from(targetNotificationTimes ?? []);
+      //编辑目标，更新数据库
+      TargetBean updateTarget = TargetBean()
+        ..id = widget.target.id
+        ..name = widget.target.name
+        ..targetDays = targetDays
+        ..targetColor = targetColor
+        ..soundKey = soundKey
+        ..createTime = widget.target.createTime
+        ..targetStatus = widget.target.targetStatus
+        ..giveUpTime = widget.target.giveUpTime
+        ..notificationTimes = List.from(targetNotificationTimes ?? []);
       //
       // //首先判断目标当前状态，如果不是在进行中，就不能编辑了，因为可能用户在这个页面停留了很长时间
       // updateTarget = TargetBean.generateTargetCurrentStatus(updateTarget);
@@ -113,13 +120,17 @@ class _TaskEditPageState extends State<TaskEditPage> {
       //   });
       // }
     } else if (widget.enterType == TaskEditPageEnterType.Enter_Type_New) {
-      // //新增目标
-      // if (focusNode.hasFocus) {
-      //   focusNode.unfocus();
-      // }
-      //
-      // TargetTableProvider targetTableProvider = TargetTableProvider();
-      //
+      if (focusNode.hasFocus) {
+        focusNode.unfocus();
+      }
+      //新增目标
+      TargetBean saveTarget = TargetBean()
+        ..name = widget.target.name
+        ..targetDays = targetDays
+        ..targetColor = targetColor
+        ..soundKey = soundKey
+        ..notificationTimes = List.from(targetNotificationTimes ?? []);
+
       // //不能重复创建目标(进行中的)，用目标名来判别是不是同一个目标
       // List<TargetBean> targets =
       // await targetTableProvider.queryTargetsByName(widget.target.name!);
@@ -159,37 +170,32 @@ class _TaskEditPageState extends State<TaskEditPage> {
       // print(targetColor);
       // print(targetNotificationTimes);
       //
-      // TargetBean saveTarget = TargetBean()
-      //   ..name = widget.target.name
-      //   ..targetDays = targetDays
-      //   ..targetColor = targetColor
-      //   ..soundKey = soundKey
-      //   ..notificationTimes = List.from(targetNotificationTimes ?? []);
+
       //
       // //保存到本地数据库
       // // int ids = await targetTableProvider.insertTarget(saveTarget);
       // //       print("-------value = $ids---------");
       //
-      // targetTableProvider.insertTarget(saveTarget).then((value) {
-      //   print("-------value = $value---------");
-      //
-      //   saveTarget.id = value['rowid'];
-      //   saveTarget.createTime = value['createTime'];
-      //   //创建本地通知
-      //   NotificationManager.createTargetNotification(saveTarget);
-      //
-      //   //刷新首页任务列表
-      //   homeController.refreshTargets();
-      //
-      //   Get.until((route) {
-      //     if (route.settings.name == Routes.HOME) {
-      //       return true;
-      //     }
-      //     return false;
-      //   });
-      // }).catchError((error) {
-      //   print(error);
-      // });
+      targetTableProvider.insertTarget(saveTarget).then((value) {
+        print("-------value = $value---------");
+
+        saveTarget.id = value['rowid'];
+        saveTarget.createTime = value['createTime'];
+        //创建本地通知
+        // NotificationManager.createTargetNotification(saveTarget);
+
+        //刷新主页任务列表
+        mainController.refreshTargets();
+
+        Get.until((route) {
+          if (route.settings.name == Routes.MAIN) {
+            return true;
+          }
+          return false;
+        });
+      }).catchError((error) {
+        print(error);
+      });
     }
   }
 

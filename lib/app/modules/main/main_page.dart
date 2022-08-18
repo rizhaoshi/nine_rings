@@ -17,6 +17,10 @@ class MainPage extends GetView<MainController> {
         child: Stack(
           children: [
             Positioned(
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: bottomTabViewHeight,
               child: PageView(
                 physics: const NeverScrollableScrollPhysics(),
                 controller: controller.pageController,

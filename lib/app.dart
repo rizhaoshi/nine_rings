@@ -4,7 +4,7 @@ import 'package:nine_rings/routes/app_routes.dart';
 
 Widget createApp() {
   return GetMaterialApp(
-    initialRoute: Routes.MAIN,
+    initialRoute: Routes.SPLASH,
     getPages: AppPages.pages,
   );
 }

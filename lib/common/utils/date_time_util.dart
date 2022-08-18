@@ -12,8 +12,7 @@ TimeOfDay? strToTimeOfDay(String? str) {
   if (items.length != 2) return null;
   TimeOfDay? timeOfDay;
   try {
-    timeOfDay =
-        TimeOfDay(hour: int.parse(items[0]), minute: int.parse(items[1]));
+    timeOfDay = TimeOfDay(hour: int.parse(items[0]), minute: int.parse(items[1]));
   } catch (e) {
     timeOfDay = null;
     print(e);
@@ -56,8 +55,7 @@ String? timeOfDayToStr(TimeOfDay timeOfDay) {
 //DateTime转字符串
 String? formatTime({String? formatter, DateTime? dateTime}) {
   if (dateTime == null) return '';
-  String? formatterStr =
-      ObjectUtil.isEmptyString(formatter) ? formatter_a : formatter;
+  String? formatterStr = ObjectUtil.isEmptyString(formatter) ? formatter_a : formatter;
   var dateFormatter = DateFormat(formatterStr);
   String? dateTimeStr;
   try {
@@ -67,4 +65,9 @@ String? formatTime({String? formatter, DateTime? dateTime}) {
     print(e);
   }
   return dateTimeStr;
+}
+
+//计算两个日期 相隔多少天
+int diffDaysBetweenTwoDate(DateTime startTime, DateTime endTime) {
+  return endTime.difference(startTime).inDays;
 }
