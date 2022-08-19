@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:nine_rings/app/modules/home/home_page.dart';
-import 'package:nine_rings/common/widgets/main_page_tabview.dart';
 import 'main_controller.dart';
 import 'package:nine_rings/common/config.dart';
+import 'package:nine_rings/common/widgets/filter_view.dart';
+import 'package:nine_rings/app/modules/home/home_page.dart';
+import 'package:nine_rings/common/widgets/main_page_tabview.dart';
 
 class MainPage extends GetView<MainController> {
   const MainPage({Key? key}) : super(key: key);
@@ -28,23 +29,32 @@ class MainPage extends GetView<MainController> {
               ),
             ),
             Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: Container(
-                height: bottomTabViewHeight,
-                width: double.infinity,
-                child: MainPageTabView(
-                  tabIcons: const ['assets/icons/common/menu.svg', 'assets/icons/common/exercise.svg'],
-                  selectedIndex: 0,
-                  bgColor: Colors.white,
-                  activeColor: commonGreenColor,
-                  onPress: (index) {
-                    controller.pageController.animateToPage(index, duration: const Duration(milliseconds: 200), curve: Curves.ease);
-                  },
-                ),
-              ),
-            )
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: Container(
+                    height: bottomTabViewHeight,
+                    width: double.infinity,
+                    child: MainPageTabView(
+                      tabIcons: const ['assets/icons/common/menu.svg', 'assets/icons/common/exercise.svg'],
+                      selectedIndex: 0,
+                      bgColor: Colors.white,
+                      activeColor: commonGreenColor,
+                      onPress: (index) {
+                        controller.pageController.animateToPage(index, duration: const Duration(milliseconds: 200), curve: Curves.ease);
+                      },
+                    ))),
+            GetBuilder<MainController>(
+                id: "filter_view",
+                builder: (controller) {
+                  if (!controller.isShowFilterView) return Container();
+                  return FilterView(
+                      mainController: controller,
+                      callBack: (selectedType) {
+                        // controller.hideFilterView();
+                        controller.updateFilterType(selectedType);
+                      });
+                })
           ],
         ),
       ),

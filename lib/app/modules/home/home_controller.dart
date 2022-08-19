@@ -5,11 +5,17 @@ import 'package:nine_rings/app/modules/main/main_controller.dart';
 import 'package:nine_rings/common/config.dart';
 import 'package:nine_rings/app/bean/exercise_bean.dart';
 import 'package:nine_rings/core/data_dao/providers/target_table_provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomeController extends GetxController {
   List<Exercise> exerciseLists = [];
   List<TargetBean> savedTargets = [];
   TargetTableProvider targetTableProvider = TargetTableProvider();
+
+  //下拉刷新
+  RefreshController refreshController = RefreshController();
+  late MainController mainController;
+  FilterType filterType = FilterType.all;
 
   @override
   void onInit() {
@@ -47,8 +53,28 @@ class HomeController extends GetxController {
   Future<void> querySavedTargets(FilterType filterType) async {
     savedTargets.clear();
     //查询本地数据库
-    savedTargets = await targetTableProvider.queryTarget(filterType: filterType);
-    print('=======${exerciseLists.length}=======');
+    List<TargetBean> queryTargets = await targetTableProvider.queryTarget(filterType: filterType);
+    if (filterType == FilterType.all || filterType == FilterType.giveUp) {
+      queryTargets.forEach((element) {
+        savedTargets.add(element);
+      });
+    } else if (filterType == FilterType.processing) {
+      //进行中
+      queryTargets.forEach((element) {
+        TargetBean target = element;
+        if (target.targetStatus == TargetStatus.processing) {
+          savedTargets.add(target);
+        }
+      });
+    } else if (filterType == FilterType.completed) {
+      //已完成
+      queryTargets.forEach((element) {
+        TargetBean target = element;
+        if (target.targetStatus == TargetStatus.completed) {
+          savedTargets.add(target);
+        }
+      });
+    }
     update(["list_view"]);
   }
 
@@ -59,5 +85,44 @@ class HomeController extends GetxController {
 
   void refreshTargets() {
     querySavedTargets(FilterType.all);
+  }
+
+  //下拉刷新
+  void refreshList() async {
+    await querySavedTargets(FilterType.all);
+    refreshController.refreshCompleted();
+  }
+
+  //过滤
+  void showFilterView() {
+    mainController = Get.find<MainController>();
+    mainController.showFilterView();
+  }
+
+  String getFilterTitle() {
+    String title = "";
+
+    switch (filterType) {
+      case FilterType.all:
+        title = 'all'.tr;
+        break;
+      case FilterType.processing:
+        title = 'processing'.tr;
+        break;
+      case FilterType.completed:
+        title = 'completed'.tr;
+        break;
+      case FilterType.giveUp:
+        title = 'giveup'.tr;
+        break;
+    }
+    return title;
+  }
+
+  void updateFilterType(FilterType type) {
+    if (type == filterType) return;
+    filterType = type;
+    update(["filter_button"]);
+    querySavedTargets(filterType);
   }
 }

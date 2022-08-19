@@ -78,11 +78,11 @@ class TargetBean {
     //判断目标状态
     TargetStatus? targetStatus;
     DateTime? giveUpTime;
-    String timeStr = map['t_give_up_time'];
-    if (ObjectUtil.isEmptyString(timeStr)) {
+    String? timeStr = map['t_give_up_time'];
+    if (!ObjectUtil.isEmptyString(timeStr)) {
       //已放弃
       targetStatus = TargetStatus.giveUp;
-      giveUpTime = strToDateTime(timeStr);
+      giveUpTime = strToDateTime(timeStr!);
     } else {
       //获取目标完成时间
       DateTime completeTime =

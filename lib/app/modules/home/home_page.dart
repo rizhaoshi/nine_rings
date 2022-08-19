@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:get/get.dart';
@@ -44,8 +45,8 @@ class HomePage extends GetView<HomeController> {
         onTap: () {},
         child: Container(
           height: 80,
-          margin: EdgeInsets.only(left: 20, right: 20, top: index == 0 ? 20 : 10, bottom: index == homeController.exerciseLists.length - 1 ? 20 : 10),
-          decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(10)), color: lightenColor(target.targetColor!, 55)),
+          margin: EdgeInsets.only(left: 20, right: 20, top: index == 0 ? 20 : 10, bottom: index == homeController.savedTargets.length - 1 ? 20 : 10),
+          decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(10)), color: lighten(target.targetColor!, 55)),
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: Stack(
             fit: StackFit.expand,
@@ -66,7 +67,7 @@ class HomePage extends GetView<HomeController> {
                   Container(
                       margin: const EdgeInsets.only(left: 20),
                       child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text("${target.name}", style: TextStyle(color: textBlackColor, fontWeight: FontWeight.w400, fontSize: 10)),
+                        Text("${target.name}", style: TextStyle(color: textBlackColor, fontWeight: FontWeight.w400, fontSize: 16)),
                         Container(
                             margin: const EdgeInsets.only(top: 4),
                             child: Text("${'start_ta'.tr} ${formatTime(formatter: formatter_b, dateTime: target.createTime)}",
@@ -76,7 +77,7 @@ class HomePage extends GetView<HomeController> {
                       child: target.targetStatus == TargetStatus.processing
                           ? Container(
                               margin: const EdgeInsets.only(right: 20),
-                              child: Text("${_caculateProcessingDays(target) ?? ''}/${target.targetDays}",
+                              child: Text("${_caculateProcessingDays(target) ?? ''}/${target.targetDays} ${'days'.tr}",
                                   textAlign: TextAlign.right, style: TextStyle(color: textBlackColor, fontWeight: FontWeight.w400, fontSize: 20)),
                             )
                           : Container(
@@ -135,74 +136,100 @@ class HomePage extends GetView<HomeController> {
                         ),
                       ),
                       Expanded(
-                          child: Container(
-                        width: double.infinity,
-                        margin: const EdgeInsets.all(10),
-                        decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: Colors.white),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                    margin: const EdgeInsets.only(top: 15, left: 20, bottom: 2),
-                                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                                    decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(10)), color: commonGreenColor),
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          "筛选",
-                                          style: TextStyle(color: textBlackColor, fontSize: 16, fontWeight: FontWeight.w400),
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.only(left: 4),
-                                          child: SvgPicture.asset(
-                                            'assets/icons/common/filters.svg',
-                                            width: 18,
-                                            height: 18,
-                                            color: textBlackColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ))),
-                            Expanded(
-                                child: Stack(
-                              fit: StackFit.expand,
+                          child: GetBuilder<HomeController>(
+                        id: "filter_button",
+                        builder: (ctl) {
+                          return Container(
+                            width: double.infinity,
+                            margin: const EdgeInsets.all(10),
+                            decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: Colors.white),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                GetBuilder<HomeController>(
-                                    id: "list_view",
-                                    builder: (controller) {
-                                      return ListView.builder(
-                                        padding: EdgeInsets.zero,
-                                        itemBuilder: (context, index) {
-                                          return _renderTargetItem(controller, index, context);
-                                        },
-                                        itemCount: controller.savedTargets.length,
-                                      );
-                                    }),
-                                Positioned(
-                                    right: 20,
-                                    bottom: 20,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        controller.jumpSelectTargetPage();
-                                      },
-                                      child: Container(
-                                          child: SvgPicture.asset(
-                                        "assets/icons/common/add_target.svg",
-                                        color: Colors.blue,
-                                        width: 50,
-                                        height: 50,
-                                      )),
-                                    ))
+                                GestureDetector(
+                                    onTap: () {
+                                      controller.showFilterView();
+                                    },
+                                    child: Container(
+                                        margin: const EdgeInsets.only(top: 15, left: 20, bottom: 2),
+                                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                        decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(10)), color: commonGreenColor),
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              controller.getFilterTitle(),
+                                              style: TextStyle(color: textBlackColor, fontSize: 16, fontWeight: FontWeight.w400),
+                                            ),
+                                            Container(
+                                              margin: const EdgeInsets.only(left: 4),
+                                              child: SvgPicture.asset(
+                                                'assets/icons/common/filters.svg',
+                                                width: 18,
+                                                height: 18,
+                                                color: textBlackColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ))),
+                                Expanded(
+                                    child: Stack(
+                                  fit: StackFit.expand,
+                                  children: [
+                                    GetBuilder<HomeController>(
+                                        id: "list_view",
+                                        builder: (controller) {
+                                          return SmartRefresher(
+                                            controller: controller.refreshController,
+                                            enablePullDown: true,
+                                            //下拉刷新
+                                            header: const ClassicHeader(
+                                              idleText: "下拉刷新",
+                                              releaseText: "松开手指,刷新",
+                                              completeText: "刷新完成",
+                                            ),
+                                            onRefresh: () {
+                                              controller.refreshList();
+                                            },
+                                            //上拉加载
+                                            enablePullUp: false,
+                                            footer: const ClassicFooter(
+                                              idleText: "加载中...",
+                                            ),
+                                            onLoading: () {},
+                                            child: ListView.builder(
+                                              padding: EdgeInsets.zero,
+                                              itemBuilder: (context, index) {
+                                                return _renderTargetItem(controller, index, context);
+                                              },
+                                              itemCount: controller.savedTargets.length,
+                                            ),
+                                          );
+                                        }),
+                                    Positioned(
+                                        right: 20,
+                                        bottom: 20,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            controller.jumpSelectTargetPage();
+                                          },
+                                          child: Container(
+                                              child: SvgPicture.asset(
+                                            "assets/icons/common/add_target.svg",
+                                            color: Colors.blue,
+                                            width: 50,
+                                            height: 50,
+                                          )),
+                                        ))
+                                  ],
+                                ))
                               ],
-                            ))
-                          ],
-                        ),
+                            ),
+                          );
+                        },
                       ))
                     ],
                   ),

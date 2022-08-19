@@ -41,7 +41,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
   bool isDeleteMode = false;
   final _notificationTimesMaxLimit = 4;
 
-  MainController mainController= Get.find<MainController>();
+  MainController mainController = Get.find<MainController>();
 
   @override
   void initState() {
@@ -90,7 +90,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
         ..targetStatus = widget.target.targetStatus
         ..giveUpTime = widget.target.giveUpTime
         ..notificationTimes = List.from(targetNotificationTimes ?? []);
-      //
+
       // //首先判断目标当前状态，如果不是在进行中，就不能编辑了，因为可能用户在这个页面停留了很长时间
       // updateTarget = TargetBean.generateTargetCurrentStatus(updateTarget);
       //
@@ -164,29 +164,16 @@ class _TaskEditPageState extends State<TaskEditPage> {
       //   showCustomToast('set days'.tr);
       //   return;
       // }
-      //
-      // // 存入本地数据库
-      // print(targetDays);
-      // print(targetColor);
-      // print(targetNotificationTimes);
-      //
 
-      //
-      // //保存到本地数据库
-      // // int ids = await targetTableProvider.insertTarget(saveTarget);
-      // //       print("-------value = $ids---------");
-      //
       targetTableProvider.insertTarget(saveTarget).then((value) {
-        print("-------value = $value---------");
-
         saveTarget.id = value['rowid'];
-        saveTarget.createTime = value['createTime'];
+        saveTarget.createTime = strToDateTime(value['createTime']);
         //创建本地通知
         // NotificationManager.createTargetNotification(saveTarget);
 
         //刷新主页任务列表
         mainController.refreshTargets();
-
+        print("-------value = $value---------");
         Get.until((route) {
           if (route.settings.name == Routes.MAIN) {
             return true;

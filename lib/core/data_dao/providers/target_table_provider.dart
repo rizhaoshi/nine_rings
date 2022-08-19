@@ -61,7 +61,7 @@ class TargetTableProvider extends BaseTableProvider {
       }
       notificationTimes = times;
     }
-    String nowStr = formatTime(dateTime: DateTime.now())!;
+    String nowStr = formatTime(formatter: formatter_a, dateTime: DateTime.now())!;
     //执行插入操作 返回插入的主键id
     return await db.transaction((txn) async {
       int rowid = await txn.rawInsert(
