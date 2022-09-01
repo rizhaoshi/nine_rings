@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:nine_rings/app/modules/exercise/exercise_page.dart';
 import 'package:nine_rings/app/modules/home/home_page.dart';
-import 'package:nine_rings/common/widgets/keep_alive_widget.dart';
 import 'package:nine_rings/core/data_dao/providers/target_table_provider.dart';
 import 'package:nine_rings/routes/app_routes.dart';
+import '../../widgets/keep_alive_widget.dart';
 import '../home/home_controller.dart';
 
 class MainController extends GetxController {
@@ -17,13 +18,7 @@ class MainController extends GetxController {
     super.onInit();
     pageViews = [
       KeepAliveWidget(HomePage()),
-      KeepAliveWidget(Container(
-        color: Colors.red,
-        width: double.infinity,
-        height: double.infinity,
-        alignment: Alignment.center,
-        child: Text('运动瀑布页'),
-      ))
+      KeepAliveWidget(ExercisePage())
     ];
   }
 

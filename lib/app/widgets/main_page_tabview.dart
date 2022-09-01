@@ -9,13 +9,7 @@ class MainPageTabView extends StatefulWidget {
   final Function(int index)? onPress;
   int selectedIndex;
 
-  MainPageTabView(
-      {Key? key,
-      required this.tabIcons,
-      this.activeColor,
-      this.bgColor,
-      this.onPress,
-      this.selectedIndex = 0})
+  MainPageTabView({Key? key, required this.tabIcons, this.activeColor, this.bgColor, this.onPress, this.selectedIndex = 0})
       : assert(tabIcons!.length <= 5),
         assert(selectedIndex <= tabIcons!.length - 1),
         super(key: key);
@@ -44,12 +38,8 @@ class _MainPageTabViewState extends State<MainPageTabView> {
               widget.selectedIndex = index;
             });
           },
-          icon: SvgPicture.asset(
-            asset,
-            color: index == widget.selectedIndex
-                ? widget.activeColor
-                : Colors.grey,
-          ),
+          icon: SvgPicture.asset(asset,
+              color: index == widget.selectedIndex ? widget.activeColor : Colors.grey, width: index == 0 ? 38 : 35, height: index == 0 ? 38 : 35),
         ),
       );
     }).toList();

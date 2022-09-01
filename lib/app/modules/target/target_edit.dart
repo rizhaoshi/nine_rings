@@ -9,10 +9,9 @@ import 'package:nine_rings/app/bean/target_bean.dart';
 import 'package:nine_rings/app/bean/sound_bean.dart';
 import 'package:nine_rings/common/utils/object_util.dart';
 import 'package:nine_rings/common/utils/date_time_util.dart';
-import 'package:nine_rings/common/widgets/custom_dialog.dart';
 import 'package:nine_rings/core/data_dao/providers/target_table_provider.dart';
-
 import '../../../routes/app_routes.dart';
+import '../../widgets/custom_dialog.dart';
 import '../main/main_controller.dart';
 
 enum TaskEditPageEnterType {

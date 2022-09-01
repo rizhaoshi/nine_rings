@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+enum NavigatorBarType { common, detail_page }
+
 enum NavigatorBarCloseType { close, back }
 
 class NavigatorBar extends StatelessWidget implements PreferredSizeWidget {
+  final NavigatorBarType? navigatorBarType;
   final NavigatorBarCloseType? closeType;
   final double? height;
   final Color? bgColor;
@@ -15,6 +18,7 @@ class NavigatorBar extends StatelessWidget implements PreferredSizeWidget {
 
   NavigatorBar(
       {Key? key,
+      this.navigatorBarType = NavigatorBarType.common,
       this.closeType = NavigatorBarCloseType.back,
       this.height = 55.0,
       this.bgColor = Colors.white,
@@ -36,10 +40,7 @@ class NavigatorBar extends StatelessWidget implements PreferredSizeWidget {
               alignment: Alignment.center,
               child: Text(
                 title ?? "",
-                style: TextStyle(
-                    fontSize: 20,
-                    color: baseColor,
-                    fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 20, color: baseColor, fontWeight: FontWeight.w600),
               ),
             ),
           ),
@@ -55,8 +56,7 @@ class NavigatorBar extends StatelessWidget implements PreferredSizeWidget {
                   closeCallBack?.call();
                   Get.back();
                 },
-                style: ButtonStyle(
-                    padding: MaterialStateProperty.all(EdgeInsets.zero)),
+                style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero)),
                 child: closeType == NavigatorBarCloseType.close
                     ? SvgPicture.asset(
                         "assets/icons/common/close.svg",

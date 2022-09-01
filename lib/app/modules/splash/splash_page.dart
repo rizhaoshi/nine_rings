@@ -48,11 +48,10 @@ class _SplashPageViewState extends State<SplashPageView> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(
-                        top: Get.height / 2 - (Get.width - 40) / 2 - 50),
+                    margin: EdgeInsets.only(top: Get.height / 2 - (Get.width - 40) / 2 - 50),
                     child: SvgPicture.asset(
                       tration.asset!,
-                      height: Get.width                                                                          ,
+                      height: Get.width,
                     ),
                   ),
                   Container(
@@ -75,24 +74,17 @@ class _SplashPageViewState extends State<SplashPageView> {
                           margin: const EdgeInsets.only(top: 30),
                           child: TextButton(
                             onPressed: () {
-                              Get.toNamed(Routes.MAIN);
+                              Get.offNamed(Routes.MAIN);
                             },
                             style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.resolveWith(
-                                      (states) => commonGreenColor),
-                              textStyle:
-                                  MaterialStateProperty.all(const TextStyle(
+                              backgroundColor: MaterialStateProperty.resolveWith((states) => commonGreenColor),
+                              textStyle: MaterialStateProperty.all(const TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w400,
                                 letterSpacing: 0.5,
                               )),
-                              foregroundColor:
-                                  MaterialStateProperty.all(textBlackColor),
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(14.0))),
+                              foregroundColor: MaterialStateProperty.all(textBlackColor),
+                              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0))),
                             ),
                             child: Text('开启健康生活'),
                           ),
@@ -104,10 +96,7 @@ class _SplashPageViewState extends State<SplashPageView> {
                           alignment: Alignment.center,
                           child: Text(
                             '远离不良生活习惯',
-                            style: TextStyle(
-                                color: textBlackColor,
-                                fontSize: 22,
-                                fontWeight: FontWeight.w400),
+                            style: TextStyle(color: textBlackColor, fontSize: 22, fontWeight: FontWeight.w400),
                           ),
                         )
                 ],
@@ -126,20 +115,14 @@ class _SplashPageViewState extends State<SplashPageView> {
                 margin: const EdgeInsets.symmetric(horizontal: 4.0),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: _currentIndex == 1
-                      ? Colors.grey
-                      : Colors.grey.withOpacity(0.7),
+                  color: _currentIndex == 1 ? Colors.grey : Colors.grey.withOpacity(0.7),
                 ),
               ),
               Container(
                 width: 8.0,
                 height: 8.0,
                 margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _currentIndex == 0
-                        ? Colors.grey
-                        : Colors.grey.withOpacity(0.7)),
+                decoration: BoxDecoration(shape: BoxShape.circle, color: _currentIndex == 0 ? Colors.grey : Colors.grey.withOpacity(0.7)),
               )
             ],
           ),

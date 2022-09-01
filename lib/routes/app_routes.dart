@@ -8,18 +8,19 @@ import 'package:nine_rings/app/modules/target/target_page.dart';
 import 'package:nine_rings/app/modules/target/target_binding.dart';
 import 'package:get/get.dart';
 
+import '../app/modules/exercise/exercise_binding.dart';
+import '../app/modules/exercise/exercise_page.dart';
+import '../app/modules/help/help_binding.dart';
+import '../app/modules/help/help_page.dart';
+
 abstract class AppPages {
   static final pages = [
-    GetPage(
-        name: Routes.SPLASH,
-        page: () => SplashPage(),
-        binding: SplashBinding()),
+    GetPage(name: Routes.SPLASH, page: () => SplashPage(), binding: SplashBinding()),
     GetPage(name: Routes.MAIN, page: () => MainPage(), binding: MainBinding()),
     GetPage(name: Routes.HOME, page: () => HomePage(), binding: HomeBinding()),
-    GetPage(
-        name: Routes.TARGET,
-        page: () => TargetPage(),
-        binding: TargetBinding()),
+    GetPage(name: Routes.TARGET, page: () => TargetPage(), binding: TargetBinding()),
+    GetPage(name: Routes.EXERCISE, page: () => ExercisePage(), binding: ExerciseBinding()),
+    GetPage(name: Routes.HELP, page: () => HelpPage(), binding: HelpBinding(), fullscreenDialog: true),
   ];
 }
 
@@ -38,4 +39,8 @@ abstract class Routes {
 
   //挑战目标页
   static const TARGET = "/target";
+
+  static const EXERCISE = "/exercise";
+
+  static const HELP = "/help";
 }

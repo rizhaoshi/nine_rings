@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <application
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_jiujie"
         android:label="九戒">
         <activity
             android:name=".MainActivity"
