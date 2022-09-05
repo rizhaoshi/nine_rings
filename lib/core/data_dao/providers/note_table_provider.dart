@@ -44,7 +44,7 @@ class NoteTableProvider extends BaseTableProvider {
   //查询某条目标下的所有日记
   Future<List<NoteBean>> queryNotesByTarget({required int targetId}) async {
     Database db = await getDataBase();
-    String sql = 'SELECT*FROM $tablename WHERE $columnTargetId=$targetId ORDER BY $columnCreateTime';
+    String sql = 'SELECT * FROM $tablename WHERE $columnTargetId=$targetId ORDER BY $columnCreateTime';
     List<Map<String, dynamic>> results = await db.rawQuery(sql);
     List<NoteBean> notes = [];
     results.forEach((element) {

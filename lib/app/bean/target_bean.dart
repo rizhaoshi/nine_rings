@@ -46,8 +46,7 @@ class TargetBean {
       List<String> items = colorStr!.split('|');
       if (!ObjectUtil.isEmptyList(items) && items.length == 3) {
         try {
-          color = Color.fromRGBO(
-              int.parse(items[0]), int.parse(items[1]), int.parse(items[2]), 1);
+          color = Color.fromRGBO(int.parse(items[0]), int.parse(items[1]), int.parse(items[2]), 1);
         } catch (e) {
           print(e);
         }
@@ -85,8 +84,7 @@ class TargetBean {
       giveUpTime = strToDateTime(timeStr!);
     } else {
       //获取目标完成时间
-      DateTime completeTime =
-          crateTime!.add(Duration(days: map['t_days'] as int));
+      DateTime completeTime = crateTime!.add(Duration(days: map['t_days'] as int));
       if (DateTime.now().isBefore(completeTime)) {
         targetStatus = TargetStatus.processing;
       } else {
@@ -105,5 +103,22 @@ class TargetBean {
       ..createTime = crateTime
       ..giveUpTime = giveUpTime
       ..targetStatus = targetStatus;
+  }
+
+  static TargetBean generateTargetCurrentStatus(TargetBean target) {
+    if (target.targetStatus == null || target.targetStatus == TargetStatus.processing) {
+      TargetStatus? targetStatus;
+      //判断目标是否完成
+      DateTime? completedTime = target.createTime?.add(Duration(days: target.targetDays!));
+      if (DateTime.now().isBefore(completedTime!)) {
+        targetStatus = TargetStatus.processing;
+      } else {
+        targetStatus = TargetStatus.completed;
+      }
+      TargetBean newTarget = target.clone();
+      newTarget.targetStatus = targetStatus;
+      return newTarget;
+    }
+    return target.clone();
   }
 }

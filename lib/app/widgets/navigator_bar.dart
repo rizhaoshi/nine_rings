@@ -54,7 +54,6 @@ class NavigatorBar extends StatelessWidget implements PreferredSizeWidget {
               child: TextButton(
                 onPressed: () {
                   closeCallBack?.call();
-                  Get.back();
                 },
                 style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero)),
                 child: closeType == NavigatorBarCloseType.close

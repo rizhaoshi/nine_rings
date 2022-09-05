@@ -12,14 +12,12 @@ class MainController extends GetxController {
   HomeController homeController = Get.find<HomeController>();
   late List<Widget> pageViews;
   bool isShowFilterView = false;
+  int selectedIndex = 0;
 
   @override
   void onInit() {
     super.onInit();
-    pageViews = [
-      KeepAliveWidget(HomePage()),
-      KeepAliveWidget(ExercisePage())
-    ];
+    pageViews = [KeepAliveWidget(HomePage()), KeepAliveWidget(ExercisePage())];
   }
 
   @override
@@ -53,5 +51,11 @@ class MainController extends GetxController {
 
   void updateFilterType(FilterType type) {
     homeController.updateFilterType(type);
+  }
+
+  void switchPageToExercise() {
+    selectedIndex = 1;
+    update();
+    pageController.animateToPage(1, duration: const Duration(milliseconds: 200), curve: Curves.ease);
   }
 }

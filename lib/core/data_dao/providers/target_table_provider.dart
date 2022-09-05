@@ -121,8 +121,8 @@ class TargetTableProvider extends BaseTableProvider {
 
     //执行更新操作 返回插入的主键id
     return await db.transaction((txn) async {
-      Database db = await getDataBase();
-      int count = await txn.rawUpdate('UPDATE $tablename SET $columnTargetColors=?,$columnTargetSoundKey=?,$columnTargetNotificationTimes=? WHERE $columnId=',
+      int count = await txn.rawUpdate(
+          'UPDATE $tablename SET $columnTargetColors= ?,$columnTargetSoundKey= ?,$columnTargetNotificationTimes= ? WHERE $columnId= ?',
           [colors, soundKey, notificationTimes, target.id]);
       return count;
     });

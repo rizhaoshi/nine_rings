@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
-import 'package:nine_rings/app/modules/exercise/exercise_controller.dart';
-import 'package:nine_rings/app/modules/home/home_controller.dart';
-
-import '../help/help_controller.dart';
+import '../../modules/exercise/exercise_controller.dart';
+import '../../modules/home/home_controller.dart';
+import '../../modules/target_detail/target_detail_controller.dart';
 import 'main_controller.dart';
 
 class MainBinding extends Bindings {
@@ -17,8 +16,8 @@ class MainBinding extends Bindings {
     Get.lazyPut<ExerciseController>(
       () => ExerciseController(),
     );
-    // Get.lazyPut<HelpController>(
-    //   () => HelpController(),
-    // );
+    Get.lazyPut<TargetDetailController>(
+      () => TargetDetailController(),
+    );
   }
 }

@@ -12,6 +12,8 @@ import '../app/modules/exercise/exercise_binding.dart';
 import '../app/modules/exercise/exercise_page.dart';
 import '../app/modules/help/help_binding.dart';
 import '../app/modules/help/help_page.dart';
+import '../app/modules/target_detail/target_detail_binding.dart';
+import '../app/modules/target_detail/target_detail_page.dart';
 
 abstract class AppPages {
   static final pages = [
@@ -19,6 +21,7 @@ abstract class AppPages {
     GetPage(name: Routes.MAIN, page: () => MainPage(), binding: MainBinding()),
     GetPage(name: Routes.HOME, page: () => HomePage(), binding: HomeBinding()),
     GetPage(name: Routes.TARGET, page: () => TargetPage(), binding: TargetBinding()),
+    GetPage(name: Routes.TARGET_DETAIL, page: () => TargetDetailPage(), binding: TargetDetailBinding()),
     GetPage(name: Routes.EXERCISE, page: () => ExercisePage(), binding: ExerciseBinding()),
     GetPage(name: Routes.HELP, page: () => HelpPage(), binding: HelpBinding(), fullscreenDialog: true),
   ];
@@ -43,4 +46,7 @@ abstract class Routes {
   static const EXERCISE = "/exercise";
 
   static const HELP = "/help";
+
+  //挑战详情
+  static const TARGET_DETAIL = "/target_detail";
 }

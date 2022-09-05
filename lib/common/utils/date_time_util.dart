@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'object_util.dart';
+import 'package:get/get.dart';
 
 String formatter_a = 'yyyy.MM.dd HH:mm:ss';
 String formatter_b = 'yyyy.MM.dd HH:mm';
@@ -70,4 +71,22 @@ String? formatTime({String? formatter, DateTime? dateTime}) {
 //计算两个日期 相隔多少天
 int diffDaysBetweenTwoDate(DateTime startTime, DateTime endTime) {
   return endTime.difference(startTime).inDays;
+}
+
+// 秒转天时分秒
+String second2DHMS(int sec) {
+  String hms = "00${'days'.tr}00${'hours'.tr}00${'mins'.tr}00${'secs'.tr}";
+  if (sec > 0) {
+    int d = sec ~/ 86400;
+    int h = (sec % 86400) ~/ 3600;
+    int m = (sec % 3600) ~/ 60;
+    int s = sec % 60;
+    hms = "${zeroFill(d)}${'days'.tr}${zeroFill(h)}${'hours'.tr}${zeroFill(m)}${'mins'.tr}${zeroFill(s)}${'secs'.tr}";
+  }
+  return hms;
+}
+
+//补零
+String zeroFill(int i) {
+  return i >= 10 ? "$i" : "0$i";
 }

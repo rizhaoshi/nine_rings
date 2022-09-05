@@ -6,6 +6,8 @@ import 'package:nine_rings/common/config.dart';
 import 'package:nine_rings/app/bean/exercise_bean.dart';
 import 'package:nine_rings/core/data_dao/providers/target_table_provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../../routes/app_routes.dart';
+import '../target_detail/target_detail_binding.dart';
 
 class HomeController extends GetxController {
   List<Exercise> exerciseLists = [];
@@ -123,6 +125,21 @@ class HomeController extends GetxController {
     if (type == filterType) return;
     filterType = type;
     update(["filter_button"]);
+    querySavedTargets(filterType);
+  }
+
+  void switchPageToExercise() {
+    mainController = Get.find<MainController>();
+    mainController.switchPageToExercise();
+  }
+
+  void pushToTaskDetailPage(TargetBean target) {
+    Get.toNamed(Routes.TARGET_DETAIL, arguments: target.clone(), parameters: {"tag": "${++Tags.tag}"});
+  }
+
+  void updateData() {
+    print("====成功====");
+    // savedTargets.clear();
     querySavedTargets(filterType);
   }
 }

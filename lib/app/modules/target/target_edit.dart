@@ -13,6 +13,7 @@ import 'package:nine_rings/core/data_dao/providers/target_table_provider.dart';
 import '../../../routes/app_routes.dart';
 import '../../widgets/custom_dialog.dart';
 import '../main/main_controller.dart';
+import '../target_detail/target_detail_controller.dart';
 
 enum TaskEditPageEnterType {
   Enter_Type_New,
@@ -41,10 +42,11 @@ class _TaskEditPageState extends State<TaskEditPage> {
   final _notificationTimesMaxLimit = 4;
 
   MainController mainController = Get.find<MainController>();
-
+  TargetDetailController targetDetailController = Get.find<TargetDetailController>();
   @override
   void initState() {
     super.initState();
+
     targetDays = widget.target.targetDays;
     targetColor = widget.target.targetColor;
     if (ObjectUtil.isEmptyString(widget.target.soundKey)) {
@@ -90,34 +92,26 @@ class _TaskEditPageState extends State<TaskEditPage> {
         ..giveUpTime = widget.target.giveUpTime
         ..notificationTimes = List.from(targetNotificationTimes ?? []);
 
-      // //首先判断目标当前状态，如果不是在进行中，就不能编辑了，因为可能用户在这个页面停留了很长时间
-      // updateTarget = TargetBean.generateTargetCurrentStatus(updateTarget);
-      //
-      // if (updateTarget.targetStatus != TargetStatus.processing) {
-      //   //如果目标已经不是进行中，则销毁当前页面，并刷新目标详情页
-      //   targetDetailController.updateTarget(updateTarget);
-      //
-      //   Navigator.of(context).pop();
-      // } else {
-      //   TargetTableProvider targetTableProvider = TargetTableProvider();
-      //   targetTableProvider.updateTarget(updateTarget).then((value) {
-      //     //刷新首页和详情页
-      //     targetDetailController.updateTarget(updateTarget);
-      //
-      //     // Navigator.of(context).replace(oldRoute: GetPageRoute(routeName: Routes.TARGETDETAIL), newRoute: ModalRoute.withName(""));
-      //
-      //     // Get.o
-      //
-      //     homeController.refreshTargets();
-      //
-      //     //更新推送时间
-      //     NotificationManager.modifyTargetNotification(updateTarget);
-      //
-      //     Navigator.of(context).pop();
-      //   }).catchError((error) {
-      //     print(error);
-      //   });
-      // }
+      //首先判断目标当前状态，如果不是在进行中，就不能编辑了，因为可能用户在这个页面停留了很长时间
+      updateTarget = TargetBean.generateTargetCurrentStatus(updateTarget);
+
+      if (updateTarget.targetStatus != TargetStatus.processing) {
+        //如果目标已经不是进行中，则销毁当前页面，并刷新目标详情页
+        targetDetailController.updateTarget(updateTarget);
+        Navigator.of(context).pop();
+      } else {
+        print("====_save===Edit==");
+        targetTableProvider.updateTarget(updateTarget).then((value) {
+          //刷新首页和详情页
+          targetDetailController.updateTarget(updateTarget);
+          mainController.refreshTargets();
+          //更新推送时间
+          // NotificationManager.modifyTargetNotification(updateTarget);
+          Navigator.of(context).pop();
+        }).catchError((error) {
+          print(error);
+        });
+      }
     } else if (widget.enterType == TaskEditPageEnterType.Enter_Type_New) {
       if (focusNode.hasFocus) {
         focusNode.unfocus();
@@ -129,40 +123,6 @@ class _TaskEditPageState extends State<TaskEditPage> {
         ..targetColor = targetColor
         ..soundKey = soundKey
         ..notificationTimes = List.from(targetNotificationTimes ?? []);
-
-      // //不能重复创建目标(进行中的)，用目标名来判别是不是同一个目标
-      // List<TargetBean> targets =
-      // await targetTableProvider.queryTargetsByName(widget.target.name!);
-      //
-      // bool hasProcessingTarget = false;
-      //
-      // if (!ObjectUtil.isEmptyList(targets)) {
-      //   //再筛选出其中已经完成的
-      //   for (int i = 0; i < targets.length; i++) {
-      //     Target target = targets[i];
-      //
-      //     DateTime completedTime =
-      //     target.createTime!.add(Duration(days: target.targetDays!));
-      //
-      //     if (DateTime.now().isBefore(completedTime)) {
-      //       //进行中
-      //       hasProcessingTarget = true;
-      //       break;
-      //     }
-      //   }
-      // }
-      //
-      // if (hasProcessingTarget == true) {
-      //   showCustomToast('target is ongoing'.tr);
-      //   Navigator.of(context).pop();
-      //
-      //   return;
-      // }
-      //
-      // if (targetDays == null) {
-      //   showCustomToast('set days'.tr);
-      //   return;
-      // }
 
       targetTableProvider.insertTarget(saveTarget).then((value) {
         saveTarget.id = value['rowid'];

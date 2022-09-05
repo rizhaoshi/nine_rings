@@ -39,7 +39,7 @@ class _MainPageTabViewState extends State<MainPageTabView> {
             });
           },
           icon: SvgPicture.asset(asset,
-              color: index == widget.selectedIndex ? widget.activeColor : Colors.grey, width: index == 0 ? 38 : 35, height: index == 0 ? 38 : 35),
+              color: index == widget.selectedIndex ? widget.activeColor : Colors.grey, width: index == 0 ? 36 : 34, height: index == 0 ? 36 : 34),
         ),
       );
     }).toList();

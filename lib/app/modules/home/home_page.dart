@@ -42,7 +42,9 @@ class HomePage extends GetView<HomeController> {
           ? "assets/icons/common/beaming_face_with_smiling_eyes.svg"
           : "assets/icons/common/disappointed_face.svg";
       return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          controller.pushToTaskDetailPage(target);
+        },
         child: Container(
           height: 80,
           margin: EdgeInsets.only(left: 20, right: 20, top: index == 0 ? 20 : 10, bottom: index == homeController.savedTargets.length - 1 ? 20 : 10),
@@ -108,7 +110,9 @@ class HomePage extends GetView<HomeController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          controller.switchPageToExercise();
+                        },
                         child: Container(
                           width: double.infinity,
                           height: 220,
