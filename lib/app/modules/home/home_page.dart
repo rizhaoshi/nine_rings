@@ -72,7 +72,7 @@ class HomePage extends GetView<HomeController> {
                         Text("${target.name}", style: TextStyle(color: textBlackColor, fontWeight: FontWeight.w400, fontSize: 16)),
                         Container(
                             margin: const EdgeInsets.only(top: 4),
-                            child: Text("${'start_ta'.tr} ${formatTime(formatter: formatter_b, dateTime: target.createTime)}",
+                            child: Text("${'start_at'.tr} ${formatTime(formatter: formatter_b, dateTime: target.createTime)}",
                                 style: TextStyle(color: textBlackColor.withOpacity(0.6), fontWeight: FontWeight.w400, fontSize: 14)))
                       ])),
                   Expanded(

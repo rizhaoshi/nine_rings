@@ -10,6 +10,7 @@ import 'package:nine_rings/app/bean/sound_bean.dart';
 import 'package:nine_rings/common/utils/object_util.dart';
 import 'package:nine_rings/common/utils/date_time_util.dart';
 import 'package:nine_rings/core/data_dao/providers/target_table_provider.dart';
+import '../../../common/manager/notification_manager.dart';
 import '../../../routes/app_routes.dart';
 import '../../widgets/custom_dialog.dart';
 import '../main/main_controller.dart';
@@ -42,10 +43,14 @@ class _TaskEditPageState extends State<TaskEditPage> {
   final _notificationTimesMaxLimit = 4;
 
   MainController mainController = Get.find<MainController>();
-  TargetDetailController targetDetailController = Get.find<TargetDetailController>();
+  late TargetDetailController targetDetailController;
+
   @override
   void initState() {
     super.initState();
+    if (widget.enterType == TaskEditPageEnterType.Enter_Type_Edit) {
+      targetDetailController = Get.find<TargetDetailController>();
+    }
 
     targetDays = widget.target.targetDays;
     targetColor = widget.target.targetColor;
@@ -100,13 +105,12 @@ class _TaskEditPageState extends State<TaskEditPage> {
         targetDetailController.updateTarget(updateTarget);
         Navigator.of(context).pop();
       } else {
-        print("====_save===Edit==");
         targetTableProvider.updateTarget(updateTarget).then((value) {
           //刷新首页和详情页
           targetDetailController.updateTarget(updateTarget);
           mainController.refreshTargets();
           //更新推送时间
-          // NotificationManager.modifyTargetNotification(updateTarget);
+          NotificationManager.modifyTargetNotification(updateTarget);
           Navigator.of(context).pop();
         }).catchError((error) {
           print(error);
@@ -128,7 +132,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
         saveTarget.id = value['rowid'];
         saveTarget.createTime = strToDateTime(value['createTime']);
         //创建本地通知
-        // NotificationManager.createTargetNotification(saveTarget);
+        NotificationManager.createTargetNotification(saveTarget);
 
         //刷新主页任务列表
         mainController.refreshTargets();

@@ -138,7 +138,7 @@ class HomeController extends GetxController {
   }
 
   void updateData() {
-    print("====成功====");
+    // print("====成功====");
     // savedTargets.clear();
     querySavedTargets(filterType);
   }

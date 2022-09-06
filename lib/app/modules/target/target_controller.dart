@@ -5,8 +5,6 @@ import 'package:nine_rings/app/bean/target_bean.dart';
 class TargetController extends GetxController {
   List<TargetBean> targets = List.from(defaultTargets);
 
-  final count = 0.obs;
-
   @override
   void onInit() {
     super.onInit();
@@ -21,6 +19,4 @@ class TargetController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

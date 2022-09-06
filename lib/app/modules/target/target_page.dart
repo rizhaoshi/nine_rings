@@ -12,25 +12,21 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 class TargetPage extends GetView<TargetController> {
   const TargetPage({Key? key}) : super(key: key);
 
-  Widget _renderTargetItem(
-      TargetBean? target, int index, BuildContext context) {
+  Widget _renderTargetItem(TargetBean? target, int index, BuildContext context) {
     if (target == null) return const SizedBox.shrink();
 
     return InkWell(
       onTap: () {
         CupertinoScaffold.showCupertinoModalBottomSheet(
-            context: context,
-            builder: (context) => TaskEditPage(target),
-            enableDrag: true,
-            expand: true,
-            backgroundColor: Colors.transparent);
+          context: context,
+          builder: (context) => TaskEditPage(target),
+          enableDrag: true,
+          expand: true,
+          backgroundColor: Colors.transparent,
+        );
       },
       child: Container(
-        margin: EdgeInsets.only(
-            top: index == 0 ? 30 : 10,
-            left: 30,
-            right: 30,
-            bottom: index == controller.targets.length - 1 ? 30 : 10),
+        margin: EdgeInsets.only(top: index == 0 ? 30 : 10, left: 30, right: 30, bottom: index == controller.targets.length - 1 ? 30 : 10),
         height: 80,
         clipBehavior: Clip.none,
         decoration: BoxDecoration(
@@ -82,7 +78,9 @@ class TargetPage extends GetView<TargetController> {
           title: "挑战目标",
           closeType: NavigatorBarCloseType.close,
           bgColor: Colors.red,
-          closeCallBack: () {},
+          closeCallBack: () {
+            Get.back();
+          },
         ),
         body: SafeArea(
           child: LiveList(
@@ -95,12 +93,8 @@ class TargetPage extends GetView<TargetController> {
               return FadeTransition(
                 opacity: Tween<double>(begin: 0, end: 1).animate(animation),
                 child: SlideTransition(
-                  position:
-                      Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero)
-                          .animate(animation),
-                  child: _renderTargetItem(
-                      controller.targets[index], index, context),
-                ),
+                    position: Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero).animate(animation),
+                    child: _renderTargetItem(controller.targets[index], index, context)),
               );
             }),
           ),

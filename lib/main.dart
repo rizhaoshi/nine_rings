@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'app.dart';
+import 'common/global_binding.dart';
+import 'common/manager/notification_manager.dart';
 import 'core/data_dao/providers/target_table_provider.dart';
 import 'core/data_dao/providers/note_table_provider.dart';
 
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+
+  await GlobalBinding.init();
   _createTables();
+
+  //通知初始化，推送图标/channer等等
+  NotificationManager.init();
   runApp(createApp());
   //安卓如何不设置以下的，状态栏上会有一层灰色的蒙层
   SystemUiOverlayStyle systemUiOverlayStyle =const SystemUiOverlayStyle(

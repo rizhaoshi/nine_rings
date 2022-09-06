@@ -1,5 +1,6 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import '../../../common/manager/notification_manager.dart';
 import '../../../common/utils/object_util.dart';
 import '../../../core/data_dao/providers/note_table_provider.dart';
 import '../../../core/data_dao/providers/target_table_provider.dart';
@@ -88,7 +89,6 @@ class TargetDetailController extends GetxController {
   //编辑目标后，更新当前详情页目标对象
   void updateTarget(TargetBean updateTarget) {
     target = updateTarget;
-    print("====updateTarget====");
     update(['all', 'appbar']);
   }
 
@@ -104,9 +104,8 @@ class TargetDetailController extends GetxController {
 
   void giveupTarget() {
     tableProvider.giveUpTarget(target).then((value) {
-      //TODO
       //取消该目标的所有推送
-
+      NotificationManager.cancelTargetNotification(target);
       target.targetStatus = TargetStatus.giveUp;
       jouneries.add(Jounery()
         ..text = 'challenge_giveup'.tr
@@ -116,5 +115,4 @@ class TargetDetailController extends GetxController {
       print(error);
     });
   }
-
 }

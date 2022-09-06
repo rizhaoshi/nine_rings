@@ -78,7 +78,9 @@ dev_dependencies:
   launch_review: ^3.0.1
   connectivity_plus: ^2.3.6+1
   url_launcher: ^6.1.5
+  package_info: ^2.0.2
   flutter_easyloading: ^3.0.5
+  awesome_notifications: ^0.6.21
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

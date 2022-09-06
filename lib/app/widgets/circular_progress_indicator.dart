@@ -56,7 +56,7 @@ class CircularProgressIndicator extends StatelessWidget {
     return Transform.rotate(
         angle: -pi / 2.0 - _offset,
         child: CustomPaint(
-          size: Size.fromHeight(radius),
+          size: Size.fromRadius(radius),
           painter: _CircularProgressPainter(
             strokeWidth: strokeWidth,
             strokeCapRound: strokeCapRound,
